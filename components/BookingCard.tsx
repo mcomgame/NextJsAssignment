@@ -1,27 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 
-export default function BookingCard() {
-  const router = useRouter();
+type BookingCardProps = {
+  onSubmit: (data: { lastName: string; pnr: string }) => void;
+  loading?: boolean;
+};
+
+export default function BookingCard({
+  onSubmit,
+  loading = false,
+}: BookingCardProps) {
   const [lastName, setLastName] = useState("");
   const [pnr, setPnr] = useState("");
 
-  const handleBooking = async () => {
-    const res = await fetch("/api/booking", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ lastName, pnr }),
-    });
-
-    const data = await res.json();
-
-    if (data.success) {
-      router.push("/checkin");
-    } else {
-      alert(data.message);
-    }
+  const handleClick = () => {
+    onSubmit({ lastName, pnr });
   };
 
   return (
@@ -51,8 +45,8 @@ export default function BookingCard() {
           />
         </div>
 
-        <button onClick={handleBooking} className="booking-button">
-          Retrieve Booking
+        <button onClick={handleClick} className="booking-button">
+          {loading ? "Loading..." : "Retrieve Booking"}
         </button>
 
         <div className="booking-tip">
