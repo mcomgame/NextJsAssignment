@@ -1,11 +1,13 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import CheckinTopNav from "@/components/CheckinTopNav";
 import CheckinBottomBar from "@/components/CheckinBottomBar";
 import CheckinCard from "@/components/CheckinCard";
 
 export default function CheckinPage() {
+  const router = useRouter();
   const [selected, setSelected] = useState<string[]>([]);
 
   const passengers = [
@@ -30,7 +32,7 @@ export default function CheckinPage() {
       {/* Bottom */}
       <CheckinBottomBar
         onNext={() => {
-          console.log("Go next page later");
+          router.push("/passengerDetails");
         }}
       />
     </div>

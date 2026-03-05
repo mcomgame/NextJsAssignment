@@ -15,7 +15,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: #170a0a;
   }
 }
 
@@ -70,10 +70,11 @@ body {
 }
 
 .checkin-card {
-  @apply w-[420px] bg-white p-8 rounded-2xl shadow-xl
+  @apply w-[1080px] bg-white p-8 rounded-2xl shadow-xl
          cursor-pointer transition-all duration-200
          border border-transparent relative;
 }
+
 
 /* Hover effect */
 .checkin-card:hover {

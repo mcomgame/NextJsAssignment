@@ -23,12 +23,12 @@ export default function CheckinCard({ passengers }: CheckinCardProps) {
   };
 
   return (
-    <div className="booking-container">
-      <div className="booking-card">
+    <div className="min-h-screen bg-gray-100 py-6">
+      <div className="max-w-3xl mx-auto bg-white rounded-2xl shadow-md overflow-hidden">
         <div className="max-w-3xl mx-auto p-6 space-y-4">
           {/* Header */}
           <h2 className="text-xl font-semibold">Select Passengers</h2>
-          <p className="text-gray-500">Choose passengers for check-in</p>
+          <p className="text-gray-1000">Choose passengers for check-in</p>
 
           {/* Cards */}
           <div className="space-y-4">
