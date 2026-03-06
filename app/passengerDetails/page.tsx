@@ -29,12 +29,6 @@ export default function CheckinPage() {
     },
   ];
 
-  const toggleSelect = (id: string) => {
-    setSelected((prev) =>
-      prev.includes(id) ? prev.filter((p) => p !== id) : [...prev, id],
-    );
-  };
-
   return (
     <div className="min-h-screen bg-gray-50 pb-24">
       {/* Top */}

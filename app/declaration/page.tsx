@@ -18,8 +18,9 @@ export default function CheckinPage() {
 
       {/* Bottom */}
       <CheckinBottomBar
+        nextLabel="Accept & Continue"
         onNext={() => {
-          router.push("/declaration");
+          router.push("/boarding");
         }}
       />
     </div>
