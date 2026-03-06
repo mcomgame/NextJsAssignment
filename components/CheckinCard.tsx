@@ -11,15 +11,23 @@ export type CheckinCardItem = {
 
 type CheckinCardProps = {
   passengers: CheckinCardItem[];
+  onSelectionChange?: (selectedIds: string[]) => void;
 };
 
-export default function CheckinCard({ passengers }: CheckinCardProps) {
+export default function CheckinCard({
+  passengers,
+  onSelectionChange,
+}: CheckinCardProps) {
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   const toggleSelect = (id: string) => {
-    setSelectedIds((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
-    );
+    setSelectedIds((prev) => {
+      const newSelectedIds = prev.includes(id)
+        ? prev.filter((item) => item !== id)
+        : [...prev, id];
+      onSelectionChange?.(newSelectedIds);
+      return newSelectedIds;
+    });
   };
 
   return (

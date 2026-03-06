@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import CheckinTopNav from "@/components/CheckinTopNav";
 import CheckinBottomBar from "@/components/CheckinBottomBar";
@@ -8,7 +8,9 @@ import PassengerDetails from "@/components/PassengerDetails";
 
 export default function CheckinPage() {
   const router = useRouter();
-  const [selected, setSelected] = useState<string[]>([]);
+  // const [selected, setSelected] = useState<string[]>([]);
+  const searchParams = useSearchParams();
+  const selectedIdsParam = searchParams.get("selectedIds");
 
   const passengerList = [
     {

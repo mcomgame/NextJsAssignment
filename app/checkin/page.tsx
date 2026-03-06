@@ -1,25 +1,29 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import CheckinTopNav from "@/components/CheckinTopNav";
 import CheckinBottomBar from "@/components/CheckinBottomBar";
 import CheckinCard from "@/components/CheckinCard";
 
+type Passenger = {
+  id: string;
+  name: string;
+  type: string;
+  seat: string;
+};
+
 export default function CheckinPage() {
   const router = useRouter();
+
+  const [passengers, setPassengers] = useState<Passenger[]>([]);
   const [selected, setSelected] = useState<string[]>([]);
 
-  const passengers = [
-    { id: "1", name: "ALEX HUUM", type: "ADT", seat: "12A" },
-    { id: "2", name: "Somsee Kuum", type: "ADT", seat: "12B" },
-  ];
-
-  const toggleSelect = (id: string) => {
-    setSelected((prev) =>
-      prev.includes(id) ? prev.filter((p) => p !== id) : [...prev, id],
-    );
-  };
+  useEffect(() => {
+    fetch("/api/passengers")
+      .then((res) => res.json())
+      .then((data) => setPassengers(data));
+  }, []);
 
   return (
     <div className="min-h-screen bg-gray-50 pb-24">
@@ -27,12 +31,13 @@ export default function CheckinPage() {
       <CheckinTopNav step={2} totalSteps={5} />
 
       {/* Content */}
-      <CheckinCard passengers={passengers} />
+      <CheckinCard passengers={passengers} onSelectionChange={setSelected} />
 
       {/* Bottom */}
       <CheckinBottomBar
         onNext={() => {
-          router.push("/passengerDetails");
+          const selectedIdsQuery = encodeURIComponent(JSON.stringify(selected));
+          router.push(`/passengerDetails?selectedIds=${selectedIdsQuery}`);
         }}
       />
     </div>
