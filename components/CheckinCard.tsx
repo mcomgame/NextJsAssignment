@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export type CheckinCardItem = {
   id: string;
@@ -21,14 +21,15 @@ export default function CheckinCard({
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
 
   const toggleSelect = (id: string) => {
-    setSelectedIds((prev) => {
-      const newSelectedIds = prev.includes(id)
-        ? prev.filter((item) => item !== id)
-        : [...prev, id];
-      onSelectionChange?.(newSelectedIds);
-      return newSelectedIds;
-    });
+    setSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
+    );
   };
+
+  // Notify parent when selection changes
+  useEffect(() => {
+    onSelectionChange?.(selectedIds);
+  }, [selectedIds, onSelectionChange]);
 
   return (
     <div className="min-h-screen bg-gray-100 py-6">
